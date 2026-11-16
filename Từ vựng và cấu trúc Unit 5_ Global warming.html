@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Từ vựng và cấu trúc Unit 5: Global warming</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12301f;
+    --ink-soft:#3f5548;
+    --paper:#eef3ec;
+    --card:#ffffff;
+    --amber:#c8871a;
+    --amber-deep:#a86e10;
+    --good:#1f7a4d;
+    --good-bg:#e3f3e8;
+    --bad:#b23b2e;
+    --bad-bg:#fbe7e3;
+    --line: rgba(18,48,31,0.16);
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'Inter', system-ui, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    padding:32px 16px 64px;
+    line-height:1.5;
+  }
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background-image: linear-gradient(var(--line) 1px, transparent 1px);
+    background-size: 100% 120px;
+    opacity:0.35;
+    z-index:0;
+  }
+  .wrap{ position:relative; z-index:1; width:100%; max-width:620px; }
+  header.top{
+    display:flex; align-items:baseline; justify-content:space-between;
+    margin-bottom:22px; gap:12px;
+  }
+  header.top h1{
+    font-family:var(--serif); font-size:21px; font-weight:600; margin:0; letter-spacing:-0.01em;
+  }
+  header.top .tag{ font-size:13px; color:var(--ink-soft); white-space:nowrap; }
+  .progress-track{
+    height:6px; background:rgba(18,48,31,0.12); border-radius:3px; overflow:hidden; margin-bottom:36px;
+  }
+  .progress-fill{ height:100%; background:var(--amber); width:0%; transition:width .35s ease; }
+
+  .card{ background:var(--card); border:2px solid var(--ink); border-radius:6px; padding:32px 28px; }
+  .qmeta{ display:flex; justify-content:space-between; align-items:center; font-size:13px; color:var(--ink-soft); margin-bottom:18px; }
+  .prompt-label{ font-size:13px; color:var(--ink-soft); margin-bottom:6px; }
+  .term{ font-family:var(--serif); font-size:26px; font-weight:700; line-height:1.25; margin:0 0 6px; }
+  .ipa{ font-size:15px; color:var(--amber-deep); margin:0 0 26px; font-weight:500; }
+
+  .choices{ display:flex; flex-direction:column; gap:10px; }
+  .choice-btn{
+    text-align:left; background:var(--card); border:1.5px solid var(--ink); border-radius:5px;
+    padding:13px 16px; font-family:var(--sans); font-size:15px; color:var(--ink); cursor:pointer;
+    transition:background .15s ease;
+  }
+  .choice-btn:hover:not(:disabled){ background:#f1ede1; }
+  .choice-btn:disabled{ cursor:default; }
+  .choice-btn.correct{ background:var(--good-bg); border-color:var(--good); color:var(--good); font-weight:600; }
+  .choice-btn.wrong{ background:var(--bad-bg); border-color:var(--bad); color:var(--bad); font-weight:600; }
+
+  .feedback{ margin-top:20px; padding-top:18px; border-top:1px dashed var(--line); display:none; }
+  .feedback.show{ display:block; }
+  .fb-verdict{ font-weight:700; font-size:15px; margin-bottom:8px; }
+  .fb-verdict.good{ color:var(--good); }
+  .fb-verdict.bad{ color:var(--bad); }
+  .fb-meaning{ font-size:15px; }
+  .fb-example{ font-size:14px; color:var(--ink-soft); font-style:italic; margin-top:6px; }
+  .next-btn{
+    margin-top:20px; width:100%; font-family:var(--sans); font-weight:700; font-size:15px;
+    padding:13px; background:var(--amber); color:#2a1c02; border:none; border-radius:5px; cursor:pointer;
+  }
+  .next-btn:hover{ background:var(--amber-deep); color:#fff; }
+
+  .results h2{ font-family:var(--serif); font-size:28px; margin:0 0 6px; }
+  .score-big{ font-family:var(--serif); font-size:56px; font-weight:700; color:var(--amber-deep); margin:14px 0 4px; }
+  .score-sub{ color:var(--ink-soft); font-size:14px; margin-bottom:26px; }
+  .review-list{ list-style:none; padding:0; margin:0 0 24px; display:flex; flex-direction:column; gap:10px; }
+  .review-list li{ border-left:3px solid var(--bad); padding:8px 14px; background:var(--bad-bg); border-radius:0 4px 4px 0; font-size:14px; }
+  .review-list li b{ font-family:var(--serif); font-size:15px; }
+  .no-wrong{ font-size:14px; color:var(--good); margin-bottom:24px; }
+  .restart-btn{
+    width:100%; font-family:var(--sans); font-weight:700; font-size:15px; padding:14px;
+    background:var(--ink); color:var(--paper); border:none; border-radius:5px; cursor:pointer;
+  }
+
+  @media (max-width:480px){
+    .card{ padding:24px 18px; }
+    .term{ font-size:22px; }
+    .score-big{ font-size:44px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>Từ vựng và cấu trúc Unit 5: Global warming</h1>
+    <span class="tag" id="counterTag">1 / 60</span>
+  </header>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="card" id="quizCard"></div>
+</div>
+
+<script>
+const VOCAB = [
+{"term": "fossil fuels (oil, gas, coal)", "ipa": "/ˈfɑːsl ˈfjuːəlz/", "meaning": "nhiên liệu hóa thạch (dầu, khí, than)", "example": "Burning fossil fuels releases a lot of carbon dioxide.", "group": "word", "excl": []},
+{"term": "heat-trapping gases / greenhouse gases", "ipa": "/ˈhiːt ˌtræpɪŋ ˈɡæsɪz / ˈɡriːnhaʊs ˈɡæsɪz/", "meaning": "khí giữ nhiệt / khí nhà kính", "example": "Heat-trapping gases make the Earth warmer.", "group": "word", "excl": []},
+{"term": "pollutant – pollution – pollute – polluted", "ipa": "/pəˈluːtənt – pəˈluːʃn – pəˈluːt – pəˈluːtɪd/", "meaning": "chất gây ô nhiễm – sự ô nhiễm – làm ô nhiễm – bị ô nhiễm", "example": "Factories pollute the air with harmful pollutants.", "group": "word", "excl": ["polluted >< fresh / pure"]},
+{"term": "greenhouse effect", "ipa": "/ˈɡriːnhaʊs ɪˈfekt/", "meaning": "hiệu ứng nhà kính", "example": "The greenhouse effect keeps heat inside the atmosphere.", "group": "word", "excl": []},
+{"term": "rising sea levels", "ipa": "/ˈraɪzɪŋ siː ˈlevlz/", "meaning": "mực nước biển dâng", "example": "Rising sea levels threaten many coastal cities.", "group": "word", "excl": []},
+{"term": "polar ice caps", "ipa": "/ˈpoʊlər aɪs kæps/", "meaning": "chỏm băng vùng cực", "example": "The polar ice caps are melting faster every year.", "group": "word", "excl": []},
+{"term": "release", "ipa": "/rɪˈliːs/", "meaning": "thả ra, thải ra (released from = given off)", "example": "Cars release harmful gases into the air.", "group": "word", "excl": ["emission"]},
+{"term": "deforestation", "ipa": "/diːˌfɔːrɪˈsteɪʃn/", "meaning": "sự phá rừng", "example": "Deforestation contributes to global warming.", "group": "word", "excl": []},
+{"term": "heat stress", "ipa": "/ˈhiːt stres/", "meaning": "ứng suất nhiệt", "example": "Farm animals can suffer from heat stress in hot weather.", "group": "word", "excl": []},
+{"term": "renewable / non-renewable", "ipa": "/rɪˈnuːəbl / ˌnɑːn rɪˈnuːəbl/", "meaning": "có thể tái tạo / không thể tái tạo", "example": "Solar and wind are renewable, but coal is non-renewable.", "group": "word", "excl": []},
+{"term": "emission", "ipa": "/ɪˈmɪʃn/", "meaning": "sự thải ra (CO2 emissions)", "example": "The country plans to cut CO2 emissions by half.", "group": "word", "excl": ["release"]},
+{"term": "landfill waste", "ipa": "/ˈlændfɪl weɪst/", "meaning": "rác thải chôn lấp", "example": "Landfill waste produces methane as it breaks down.", "group": "word", "excl": []},
+{"term": "crop waste", "ipa": "/ˈkrɑːp weɪst/", "meaning": "chất thải cây trồng", "example": "Burning crop waste adds soot to the air.", "group": "word", "excl": []},
+{"term": "convenient >< inconvenient", "ipa": "/kənˈviːniənt / ˌɪnkənˈviːniənt/", "meaning": "thuận tiện >< bất tiện", "example": "Public transport is convenient and cheap.", "group": "word", "excl": []},
+{"term": "refer to sth", "ipa": "/rɪˈfɜːr tuː/", "meaning": "đề cập đến điều gì", "example": "The report refers to climate change several times.", "group": "struct", "excl": []},
+{"term": "be linked to sth", "ipa": "/biː lɪŋkt tuː/", "meaning": "được liên kết với cái gì", "example": "Floods are linked to rising sea levels.", "group": "struct", "excl": []},
+{"term": "lead to sth = result in sth", "ipa": "/liːd tuː / rɪˈzʌlt ɪn/", "meaning": "dẫn đến điều gì", "example": "Deforestation can lead to serious floods.", "group": "struct", "excl": []},
+{"term": "have an impact/effect on sb/sth", "ipa": "/hæv ən ˈɪmpækt ɑːn/", "meaning": "có tác động đến ai/cái gì", "example": "Global warming has an impact on farming.", "group": "struct", "excl": []},
+{"term": "suffer from", "ipa": "/ˈsʌfər frʌm/", "meaning": "chịu đựng, mắc phải", "example": "He is suffering from a serious illness.", "group": "struct", "excl": []},
+{"term": "be worried about sth", "ipa": "/biː ˈwɜːrid əˈbaʊt/", "meaning": "lo lắng về điều gì", "example": "Many people are worried about climate change.", "group": "struct", "excl": []},
+{"term": "use up", "ipa": "/juːz ʌp/", "meaning": "sử dụng hết", "example": "We have used up most of our oil and coal.", "group": "struct", "excl": ["run out (of) = be exhausted"]},
+{"term": "throw away", "ipa": "/θroʊ əˈweɪ/", "meaning": "ném đi, vứt đi", "example": "Don't throw away plastic bottles; recycle them.", "group": "struct", "excl": []},
+{"term": "without + N/V-ing", "ipa": "/wɪˈðaʊt/", "meaning": "mà không có gì / làm gì", "example": "We cannot live without clean water.", "group": "struct", "excl": []},
+{"term": "switch to sth", "ipa": "/swɪtʃ tuː/", "meaning": "chuyển sang cái gì", "example": "Many families are switching to solar energy.", "group": "struct", "excl": []},
+{"term": "cut down on sth", "ipa": "/kʌt daʊn ɑːn/", "meaning": "cắt giảm", "example": "We should cut down on sugar and plastic.", "group": "struct", "excl": []},
+{"term": "be responsible for sth/doing sth", "ipa": "/biː rɪˈspɑːnsəbl fɔːr/", "meaning": "chịu trách nhiệm về điều gì / làm điều gì", "example": "Humans are responsible for many environmental problems.", "group": "struct", "excl": []},
+{"term": "agree on sth = see eye to eye on", "ipa": "/əˈɡriː ɑːn / siː aɪ tuː aɪ ɑːn/", "meaning": "đồng ý về điều gì", "example": "Leaders agreed on a plan to cut emissions.", "group": "struct", "excl": []},
+{"term": "replace sth with/by sth", "ipa": "/rɪˈpleɪs wɪð / baɪ/", "meaning": "thay thế cái gì bằng cái gì", "example": "Cities replace old buses with electric ones.", "group": "struct", "excl": []},
+{"term": "result from sth", "ipa": "/rɪˈzʌlt frʌm/", "meaning": "là kết quả của điều gì", "example": "Floods often result from heavy rain.", "group": "struct", "excl": []},
+{"term": "contribute to sth/doing sth", "ipa": "/kənˈtrɪbjuːt tuː/", "meaning": "góp phần vào cái gì / làm cái gì", "example": "Cars contribute to air pollution.", "group": "struct", "excl": []},
+{"term": "stop to do sth / stop doing sth", "ipa": "/stɑːp tuː duː / stɑːp ˈduːɪŋ/", "meaning": "dừng lại để làm gì / ngừng làm điều gì", "example": "He stopped to take a photo, then he stopped smoking.", "group": "struct", "excl": []},
+{"term": "be bad for >< be good for", "ipa": "/biː bæd fɔːr / biː ɡʊd fɔːr/", "meaning": "xấu cho >< tốt cho", "example": "Plastic bags are bad for the environment.", "group": "struct", "excl": []},
+{"term": "run out (of) = be exhausted", "ipa": "/rʌn aʊt / biː ɪɡˈzɔːstɪd/", "meaning": "cạn kiệt, hết sạch", "example": "Oil will run out one day.", "group": "struct", "excl": ["use up"]},
+{"term": "be used for doing sth / used to do sth / be used to doing sth", "ipa": "—", "meaning": "được dùng để làm gì / đã từng làm gì / quen làm gì", "example": "This machine is used for cleaning water.", "group": "struct", "excl": []},
+{"term": "provide sb with sth / provide sth for/to sb", "ipa": "/prəˈvaɪd/", "meaning": "cung cấp cho ai cái gì / cung cấp cái gì cho ai", "example": "Forests provide us with clean air.", "group": "struct", "excl": []},
+{"term": "be intended to do sth / be intended for/as sb/sth", "ipa": "/biː ɪnˈtendɪd/", "meaning": "dự định làm gì / dành cho ai/cái gì", "example": "This ward is intended for patients with serious illnesses.", "group": "struct", "excl": []},
+{"term": "in short", "ipa": "/ɪn ʃɔːrt/", "meaning": "nói tóm lại", "example": "In short, we must act now.", "group": "struct", "excl": []},
+{"term": "meet challenges / the deadline / demand", "ipa": "/miːt ˈtʃælɪndʒɪz/", "meaning": "đáp ứng thách thức / đúng hạn / đáp ứng nhu cầu", "example": "Farmers must meet the challenges of climate change.", "group": "struct", "excl": []},
+{"term": "be flooded with sth", "ipa": "/biː ˈflʌdɪd wɪð/", "meaning": "ngập trong cái gì", "example": "The streets were flooded with water after the storm.", "group": "struct", "excl": []},
+{"term": "turn into", "ipa": "/tɜːrn ˈɪntuː/", "meaning": "trở thành, biến thành", "example": "Fertile land can turn into desert.", "group": "struct", "excl": []},
+{"term": "present participle clause – chỉ lý do", "ipa": "—", "meaning": "mệnh đề hiện tại phân từ (V-ing) chỉ lý do", "example": "Needing more space for their family, the couple decided to buy a larger house.", "group": "struct", "excl": []},
+{"term": "present participle clause – hai hành động cùng lúc", "ipa": "—", "meaning": "mệnh đề hiện tại phân từ chỉ hai hành động xảy ra cùng lúc", "example": "Watching the sunset, Sarah is taking photos.", "group": "struct", "excl": []},
+{"term": "past participle clause – chỉ lý do", "ipa": "—", "meaning": "mệnh đề quá khứ phân từ (V-ed/V3) chỉ lý do, mang nghĩa bị động", "example": "Exhausted from the long journey, Peter decided to rest at the hotel.", "group": "struct", "excl": []},
+{"term": "past participle clause – chỉ điều kiện", "ipa": "—", "meaning": "mệnh đề quá khứ phân từ chỉ điều kiện (= If + bị động)", "example": "Produced in huge amounts, carbon dioxide causes air pollution.", "group": "struct", "excl": []},
+{"term": "limit = control", "ipa": "/ˈlɪmɪt / kənˈtroʊl/", "meaning": "hạn chế, kiểm soát", "example": "Governments need to limit greenhouse gas emissions.", "group": "word", "excl": []},
+{"term": "polluted >< fresh / pure", "ipa": "/pəˈluːtɪd / freʃ / pjʊr/", "meaning": "bị ô nhiễm >< trong lành, nguyên chất", "example": "People should not drink polluted water; they need fresh water.", "group": "word", "excl": ["pollutant – pollution – pollute – polluted"]},
+{"term": "afforestation", "ipa": "/əˌfɔːrɪˈsteɪʃn/", "meaning": "sự trồng rừng (trái nghĩa deforestation)", "example": "Afforestation helps absorb carbon dioxide.", "group": "word", "excl": []},
+{"term": "production / producer / product / productive", "ipa": "/prəˈdʌkʃn / prəˈduːsər / ˈprɑːdʌkt / prəˈdʌktɪv/", "meaning": "sự sản xuất / nhà sản xuất / sản phẩm / có năng suất", "example": "The production of food needs a lot of water.", "group": "word", "excl": []},
+{"term": "donation drive", "ipa": "/doʊˈneɪʃn draɪv/", "meaning": "chiến dịch quyên góp, cuộc vận động", "example": "Our school held a battery donation drive.", "group": "word", "excl": []},
+{"term": "call for", "ipa": "/kɔːl fɔːr/", "meaning": "kêu gọi", "example": "The club calls for volunteers every month.", "group": "word", "excl": []},
+{"term": "symbolic", "ipa": "/sɪmˈbɑːlɪk/", "meaning": "mang tính biểu tượng", "example": "Planting a tree is a symbolic act.", "group": "word", "excl": []},
+{"term": "solidarity", "ipa": "/ˌsɑːlɪˈdærəti/", "meaning": "sự đoàn kết", "example": "Earth Hour is a symbol of solidarity in the fight against climate change.", "group": "word", "excl": []},
+{"term": "gesture / posture", "ipa": "/ˈdʒestʃər / ˈpɑːstʃər/", "meaning": "cử chỉ / tư thế", "example": "Turning off the lights is a small but meaningful gesture.", "group": "word", "excl": []},
+{"term": "accelerate", "ipa": "/ɪkˈseləreɪt/", "meaning": "làm tăng tốc", "example": "Rising temperatures accelerate the melting of ice.", "group": "word", "excl": []},
+{"term": "glaciers", "ipa": "/ˈɡleɪʃərz/", "meaning": "sông băng", "example": "Glaciers are shrinking because of global warming.", "group": "word", "excl": []},
+{"term": "endanger", "ipa": "/ɪnˈdeɪndʒər/", "meaning": "gây nguy hiểm cho", "example": "Pollution endangers marine animals.", "group": "word", "excl": ["pose a critical threat to"]},
+{"term": "coastal", "ipa": "/ˈkoʊstl/", "meaning": "thuộc ven biển", "example": "Coastal communities face the risk of floods.", "group": "word", "excl": []},
+{"term": "pose a critical threat to", "ipa": "/poʊz ə ˈkrɪtɪkl θret tuː/", "meaning": "gây ra mối đe dọa nghiêm trọng đối với", "example": "Climate change poses a critical threat to our planet.", "group": "word", "excl": ["endanger"]},
+{"term": "disheartening", "ipa": "/dɪsˈhɑːrtnɪŋ/", "meaning": "gây nản lòng, đau lòng", "example": "It was disheartening to see so much plastic on the beach.", "group": "word", "excl": []},
+{"term": "barren landscape", "ipa": "/ˈbærən ˈlændskeɪp/", "meaning": "cảnh quan cằn cỗi, hoang vu", "example": "The drought turned the green fields into a barren landscape.", "group": "word", "excl": []}
+];
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+let order = [];
+let current = 0;
+let score = 0;
+let wrongItems = [];
+let answered = false;
+
+function startQuiz(){
+  order = shuffle(VOCAB);
+  current = 0;
+  score = 0;
+  wrongItems = [];
+  renderQuestion();
+}
+
+function buildChoices(correctItem){
+  const notSame = v => v.meaning!==correctItem.meaning
+    && !(correctItem.excl||[]).includes(v.term)
+    && !(v.excl||[]).includes(correctItem.term);
+  let pool = VOCAB.filter(v=>notSame(v) && v.group===correctItem.group);
+  if(pool.length<3) pool = VOCAB.filter(notSame);
+  const distractors = shuffle(pool).slice(0,3).map(v=>v.meaning);
+  return shuffle([correctItem.meaning, ...distractors]);
+}
+
+function renderQuestion(){
+  answered = false;
+  const total = order.length;
+  document.getElementById('counterTag').textContent = (current+1)+" / "+total;
+  document.getElementById('progressFill').style.width = ((current)/total*100)+"%";
+
+  const item = order[current];
+  const card = document.getElementById('quizCard');
+
+  let bodyHtml = `
+    <div class="qmeta"><span>Câu ${current+1} / ${total}</span></div>
+    <div class="prompt-label">Từ/cụm từ/cấu trúc này có nghĩa là gì?</div>
+    <div class="term">${item.term}</div>
+    <div class="ipa">${item.ipa}</div>
+    <div class="choices" id="choicesBox">
+  `;
+  const choices = buildChoices(item);
+  choices.forEach(c=>{
+    bodyHtml += `<button class="choice-btn" data-answer="${encodeURIComponent(c)}" onclick="handleChoice(this)">${c}</button>`;
+  });
+  bodyHtml += `</div><div class="feedback" id="feedbackBox"></div>`;
+
+  card.innerHTML = bodyHtml;
+}
+
+function showFeedback(isCorrect, item){
+  const fb = document.getElementById('feedbackBox');
+  fb.classList.add('show');
+  fb.innerHTML = `
+    <div class="fb-verdict ${isCorrect?'good':'bad'}">${isCorrect ? 'Chính xác!' : 'Chưa đúng.'}</div>
+    <div class="fb-meaning">Nghĩa đúng: <strong>${item.meaning}</strong></div>
+    <div class="fb-example">Ví dụ: ${item.example}</div>
+  `;
+  const btn = document.createElement('button');
+  btn.className = 'next-btn';
+  btn.textContent = (current === order.length-1) ? 'Xem kết quả' : 'Câu tiếp theo';
+  btn.onclick = goNext;
+  fb.appendChild(btn);
+}
+
+function handleChoice(btn){
+  if(answered) return;
+  answered = true;
+  const item = order[current];
+  const chosen = decodeURIComponent(btn.getAttribute('data-answer'));
+  const isCorrect = chosen === item.meaning;
+
+  document.querySelectorAll('.choice-btn').forEach(b=>{
+    b.disabled = true;
+    const val = decodeURIComponent(b.getAttribute('data-answer'));
+    if(val === item.meaning) b.classList.add('correct');
+    else if(b===btn) b.classList.add('wrong');
+  });
+
+  if(isCorrect) score++;
+  else wrongItems.push(item);
+
+  showFeedback(isCorrect, item);
+}
+
+function goNext(){
+  if(current === order.length-1){
+    renderResults();
+  } else {
+    current++;
+    renderQuestion();
+  }
+}
+
+function renderResults(){
+  document.getElementById('progressFill').style.width = "100%";
+  document.getElementById('counterTag').textContent = order.length+" / "+order.length;
+  const total = order.length;
+  const pct = Math.round(score/total*100);
+
+  let html = `
+    <div class="results">
+      <h2>Hoàn thành!</h2>
+      <div class="score-big">${score}/${total}</div>
+      <div class="score-sub">Bạn đã trả lời đúng ${pct}% số câu hỏi.</div>
+  `;
+
+  if(wrongItems.length === 0){
+    html += `<div class="no-wrong">Xuất sắc! Không có câu nào sai.</div>`;
+  } else {
+    html += `<ul class="review-list">`;
+    wrongItems.forEach(item=>{
+      html += `<li><b>${item.term}</b> — ${item.meaning}</li>`;
+    });
+    html += `</ul>`;
+  }
+
+  html += `<button class="restart-btn" onclick="startQuiz()">Làm lại từ đầu</button></div>`;
+
+  document.getElementById('quizCard').innerHTML = html;
+}
+
+startQuiz();
+</script>
+</body>
+</html>
